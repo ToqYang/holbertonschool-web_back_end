@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-from typing import Iterable, Sequence, List, Union, Tuple
 """
     Duck type and iteration
 """
+from typing import Iterable, Sequence, List, Union, Tuple
 
 
 def element_length(lst: Iterable[Sequence]) -> List[Tuple[Union[Sequence, int]]]:
