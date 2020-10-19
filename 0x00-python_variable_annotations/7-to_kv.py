@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from typing import Union, List, Tuple, Optional
 """
-    Mixed lists
+    Mixed Tuple
 """
 
 
-def to_kv(k: str, v: Union[int, float]) -> Tuple:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[int, float]:
     """
         Args:
             k: String
@@ -15,6 +15,7 @@ def to_kv(k: str, v: Union[int, float]) -> Tuple:
             Tuple with string and int or float
     """
 
-    cncat: Tuple(str, Optional[int, float])
+    cncat: Tuple(str, Union[int, float])
+    cncat = (k, v)
 
     return cncat
