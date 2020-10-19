@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from typing import Union, List, Tuple, Optional
+from typing import Union, Tuple
 """
     Mixed Tuple
 """
