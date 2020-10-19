@@ -5,7 +5,7 @@ from typing import Callable
 """
 
 
-def make_multiplier(multiplier: Callable[[float, float] float]) -> float:
+def make_multiplier(multiplier: float) -> Callable[[float], float]:
     """
         Args:
             multiplier: factor
@@ -14,4 +14,8 @@ def make_multiplier(multiplier: Callable[[float, float] float]) -> float:
             multiplication in float
     """
 
-    return multiplier * multiplier
+    def x(f: float) -> float:
+        """ Get the second argument somthing like JS """
+        return float(f * multiplier)
+
+    return x
