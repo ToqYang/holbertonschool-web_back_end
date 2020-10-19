@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from typing import Callable
 """
-    make_multiplier
+    Callable function
 """
 
 
