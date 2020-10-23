@@ -7,10 +7,21 @@ from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """ BaseCache defines:
-      - put method to modify
-      - get to obtain the value of keys
+    """ BasicCache define a intro to use cache
+
+      To use:
+      >>> my_cache = BasicCache()
+      >>> my_cache.print_cache()
+      Current cache:
+
+      >>> my_cache.put("A", "Hello")
+      >>> my_cache.print_cache()
+      A: Hello
+
+      >>> print(my_cache.get("A"))
+      Hello
     """
+
     def put(self, key, item):
         """
             modify cache data
