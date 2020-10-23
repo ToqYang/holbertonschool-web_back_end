@@ -60,8 +60,8 @@ class LIFOCache(BaseCaching):
             # If it's wrong fix eliminate and ask
             else:
                 del self.cache_data[key]
-        # Modify value
-        self.cache_data[key] = item
+            # Modify value
+            self.cache_data[key] = item
 
     def get(self, key):
         """
