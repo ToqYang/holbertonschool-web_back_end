@@ -55,7 +55,7 @@ class FIFOCache(BaseCaching):
                     del self.cache_data[keydel]
                     print("DISCARD: {}".format(keydel))
 
-        self.cache_data[key] = item
+            self.cache_data[key] = item
 
     def get(self, key):
         """
