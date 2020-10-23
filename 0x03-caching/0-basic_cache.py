@@ -3,26 +3,14 @@
     BaseCache module
 """
 
-BaseCaching = __import__('base_caching').BaseCaching
+from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """ BaseCaching defines:
-      - constants of your caching system
-      - where your data are stored (in a dictionary)
+    """ BaseCache defines:
+      - put method to modify
+      - get to obtain the value of keys
     """
-    def __init__(self):
-        """ Initiliaze
-        """
-        self.cache_data = {}
-
-    def print_cache(self):
-        """ Print the cache
-        """
-        print("Current cache:")
-        for key in sorted(self.cache_data.keys()):
-            print("{}: {}".format(key, self.cache_data.get(key)))
-
     def put(self, key, item):
         """
             modify cache data
