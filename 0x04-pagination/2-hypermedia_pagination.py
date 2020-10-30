@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+""" Hypermedia pagination """
 import csv
 from math import ceil
 from typing import List, Tuple, Dict
@@ -33,32 +35,13 @@ class Server:
             Return:
                 List of the pagination done
         """
-        assert type(page) == int
-        assert type(page_size) == int
-        assert page > 0
-        assert page_size > 0
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
 
-        range: Tuple = self.index_range(page, page_size)
+        range: Tuple = index_range(page, page_size)
         pagination: List = self.dataset()
 
         return (pagination[range[0]:range[1]])
-
-    def index_range(self, page: int, page_size: int) -> Dict:
-        """
-            Range of the page
-
-            Args:
-                page: Current page
-                page_size: Total size of the page
-
-            Return:
-                tuple with the range start and end size page
-        """
-
-        final_size: int = page * page_size
-        start_size: int = final_size - page_size
-
-        return (start_size, final_size)
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """
@@ -103,3 +86,19 @@ class Server:
         }
 
         return hypermedia
+
+
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """
+    Range of the page
+    Args:
+        page: Current page
+        page_size: Total size of the page
+    Return:
+        tuple with the range start and end size page
+    """
+
+    final_size: int = page * page_size
+    start_size: int = final_size - page_size
+
+    return (start_size, final_size)
