@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-""" Ofuscated and replace with regex """
+""" Obfuscated and replace with regex """
 import logging
 from re import sub
 from typing import List
+
+
+PII_FIELDS = ("name", "phone", "email", "ssn", "ip")
 
 
 class RedactingFormatter(logging.Formatter):
@@ -31,6 +34,23 @@ class RedactingFormatter(logging.Formatter):
                                   record.getMessage(), self.SEPARATOR)
 
         return (super(RedactingFormatter, self).format(record))
+
+
+def get_logger() -> logging.Logger:
+    """
+        Set the format of the record
+
+        Args:
+            record: Log record of a event
+
+        Return:
+            The function overloaded to make a new log with all items
+    """
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+    stream_handler.formatter((RedactingFormatter.FORMAT))
+
+    return stream_handler
 
 
 def filter_datum(fields: List, redaction: str,
