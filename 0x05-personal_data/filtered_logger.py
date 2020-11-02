@@ -48,7 +48,8 @@ def get_logger() -> logging.Logger:
     """
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
-    stream_handler.formatter((RedactingFormatter.FORMAT))
+    formatter = logging.Formatter((RedactingFormatter.FORMAT))
+    stream_handler.formatter(formatter)
 
     return stream_handler
 
