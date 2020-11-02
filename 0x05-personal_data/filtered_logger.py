@@ -8,34 +8,6 @@ from typing import List
 PII_FIELDS = ("name", "phone", "email", "ssn", "ip")
 
 
-class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-    """
-
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
-
-    def __init__(self, fields):
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.__fields = fields
-
-    def format(self, record: logging.LogRecord) -> str:
-        """
-            Set the format of the record
-
-            Args:
-                record: Log record of a event
-
-            Return:
-                The function overloaded to make a new log with all items
-        """
-        record.msg = filter_datum(self.__fields, self.REDACTION,
-                                  record.getMessage(), self.SEPARATOR)
-
-        return (super(RedactingFormatter, self).format(record))
-
-
 def get_logger() -> logging.Logger:
     """
         Set the format of the record
@@ -46,12 +18,16 @@ def get_logger() -> logging.Logger:
         Return:
             The function overloaded to make a new log with all items
     """
+    logging = logging.getLogger('user_data')
+
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
-    formatter = logging.Formatter((RedactingFormatter.FORMAT))
+    formatter = logging.Formatter((RedactingFormatter(fields=PII_FIELDS)))
     stream_handler.formatter(formatter)
 
-    return stream_handler
+    logging.addHandler(stream_handler)
+
+    return logging
 
 
 def filter_datum(fields: List, redaction: str,
@@ -79,3 +55,31 @@ def filter_datum(fields: List, redaction: str,
                       f'{field}={redaction}{separator}', message)
 
     return message
+
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+    """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields):
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """
+            Set the format of the record
+
+            Args:
+                record: Log record of a event
+
+            Return:
+                The function overloaded to make a new log with all items
+        """
+        record.msg = filter_datum(self.fields, self.REDACTION,
+                                  record.getMessage(), self.SEPARATOR)
+
+        return (super(RedactingFormatter, self).format(record))
