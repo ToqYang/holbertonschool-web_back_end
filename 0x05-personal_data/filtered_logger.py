@@ -18,16 +18,17 @@ def get_logger() -> logging.Logger:
         Return:
             The function overloaded to make a new log with all items
     """
-    logging = logging.getLogger('user_data')
+    log = logging.getLogger('user_data')
 
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
     formatter = logging.Formatter((RedactingFormatter(fields=PII_FIELDS)))
     stream_handler.formatter(formatter)
 
-    logging.addHandler(stream_handler)
+    log.addHandler(stream_handler)
+    log.propagate = False
 
-    return logging
+    return log
 
 
 def filter_datum(fields: List, redaction: str,
