@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
-""" Obfuscated and replace with regex """
+"""
+    Obfuscated and replace with regex
+    Provide Log formatter
+    Create logger
+"""
+import os
 import logging
+import mysql.connector
 from re import sub
 from typing import List
 
@@ -8,19 +14,36 @@ from typing import List
 PII_FIELDS = ("name", "phone", "email", "ssn", "ip")
 
 
-def get_logger() -> logging.Logger:
-    """
-        Set the format of the record
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """Get a point of connection toward the database
 
-        Args:
-            record: Log record of a event
+        Return:
+            A connection toward the database
+    """
+    username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    passw = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    hosting = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+
+    medb = mysql.connector.connect(
+        host=hosting,
+        username=username,
+        password=passw
+    )
+
+    return medb
+
+
+def get_logger() -> logging.Logger:
+    """Set the format of the record
 
         Return:
             The function overloaded to make a new log with all items
     """
-    log = logging.getLogger('user_data')
+    log: logging.Logger = logging.getLogger('user_data')
+    print(type(log))
 
-    stream_handler = logging.StreamHandler()
+    stream_handler: logging.StreamHandler = logging.StreamHandler()
+    print(type(stream_handler))
     stream_handler.setLevel(logging.INFO)
     formatter = logging.Formatter((RedactingFormatter(fields=PII_FIELDS)))
     stream_handler.formatter(formatter)
