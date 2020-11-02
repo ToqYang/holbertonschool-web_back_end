@@ -42,16 +42,14 @@ def get_logger() -> logging.Logger:
             The function overloaded to make a new log with all items
     """
     log: logging.Logger = logging.getLogger('user_data')
-    print(type(log))
+    log.propagate = False
 
     stream_handler: logging.StreamHandler = logging.StreamHandler()
-    print(type(stream_handler))
     stream_handler.setLevel(logging.INFO)
     formatter = logging.Formatter((RedactingFormatter(fields=PII_FIELDS)))
     stream_handler.formatter(formatter)
 
     log.addHandler(stream_handler)
-    log.propagate = False
 
     return log
 
