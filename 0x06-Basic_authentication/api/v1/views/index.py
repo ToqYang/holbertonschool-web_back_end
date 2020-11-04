@@ -26,10 +26,10 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
 def handle_unathourized() -> str:
-    """ GET /api/v1/unauthorized
+    """ GET /api/v1/forbidden
     Return:
       - list of all User objects JSON represented
     """
-    return abort(401)
+    return abort(403)
