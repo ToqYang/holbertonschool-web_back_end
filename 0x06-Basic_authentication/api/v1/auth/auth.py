@@ -28,6 +28,15 @@ class Auth:
             Return:
                 True if is authenticated
         """
+        if not path or not excluded_paths:
+            return True
+
+        if path[-1] is not '/':
+            path += '/'
+
+        if path not in excluded_paths:
+            return True
+
         return False
 
     def authorization_header(self, request=None) -> str:
