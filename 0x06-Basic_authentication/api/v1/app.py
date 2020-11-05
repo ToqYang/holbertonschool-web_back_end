@@ -39,7 +39,6 @@ def handle_req() -> str:
         abort(403)
 
 
-
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
