@@ -21,7 +21,7 @@ if AUTH_TYPE == "auth":
 
 
 @app.before_request
-def handle_req():
+def handle_req() -> str:
     if auth is None:
         return
 
