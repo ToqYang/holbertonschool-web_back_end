@@ -71,3 +71,8 @@ class Auth:
                 The user
         """
         return request
+
+
+class BasicAuth(Auth):
+    """ Bacis Auth class """
+    pass
