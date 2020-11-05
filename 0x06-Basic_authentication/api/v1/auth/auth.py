@@ -49,7 +49,11 @@ class Auth:
             Return:
                 The request found
         """
-        return request
+        print(request)
+        if not request or 'Authorization' not in request:
+            return None
+
+        return request['Authorization']
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
