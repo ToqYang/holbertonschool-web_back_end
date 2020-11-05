@@ -20,8 +20,46 @@ if AUTH_TYPE == "auth":
     auth = Auth()
 
 
+@app.errorhandler(404)
+def not_found(error) -> str:
+    """ Not found handler
+    """
+    return jsonify({"error": "Not found"}), 404
+
+
+@app.errorhandler(401)
+def unauthorized(error) -> str:
+    """Handle a unauthorized access
+
+        Args:
+            error: Error catch
+
+        Return:
+            Info of the error
+    """
+    return jsonify({"error": "Unauthorized"}), 401
+
+
+@app.errorhandler(403)
+def forbidden(error) -> str:
+    """Handle a forbidden resource
+
+        Args:
+            error: Error catch
+
+        Return:
+            Info of the error
+    """
+    return jsonify({"error": "Forbidden"}), 403
+
+
 @app.before_request
 def before_request() -> str:
+    """Execute before each request
+
+        Return:
+            String or nothing
+    """
     if auth is None:
         return
 
@@ -37,41 +75,6 @@ def before_request() -> str:
 
     if (auth.current_user(request.remote_user)) is None:
         abort(403)
-
-
-@app.errorhandler(404)
-def not_found(error) -> str:
-    """ Not found handler
-    """
-    return jsonify({"error": "Not found"}), 404
-
-
-@app.errorhandler(401)
-def unauthorized(error) -> str:
-    """
-        Handle a unauthorized access
-
-        Args:
-            error: Error catch
-
-        Return:
-            Info of the error
-    """
-    return jsonify({"error": "Unauthorized"}), 401
-
-
-@app.errorhandler(403)
-def forbidden(error) -> str:
-    """
-        Handle a forbidden resource
-
-        Args:
-            error: Error catch
-
-        Return:
-            Info of the error
-    """
-    return jsonify({"error": "Forbidden"}), 403
 
 
 if __name__ == "__main__":
