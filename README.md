@@ -32,12 +32,12 @@ For my learning in Holberton School
 
 ## Files
 
-| directories                             | Description          |
-| --------------------------------------- | -------------------- |
-| **0x00. Python - Variable Annotations** | Typing in Python 3.7 |
-| **0x01. Python - Async**                | Soon                 |
-| **0x02 Python - Async Comprehension**   | Soon                 |
-| **0x03. Caching**                       | Soon                 |
-| **0x04. Pagination**                    | Soon                 |
-| **0x05. Personal data**                 | Soon                 |
-| **0x06. Basic authentication**          | Soon                 |
+| directories                             | Description              |
+| --------------------------------------- | ------------------------ |
+| **0x00. Python - Variable Annotations** | Typing in Python 3.7     |
+| **0x01. Python - Async**                | Async functions          |
+| **0x02 Python - Async Comprehension**   | Async comprehension      |
+| **0x03. Caching**                       | Types of caching         |
+| **0x04. Pagination**                    | Type of pagination       |
+| **0x05. Personal data**                 | Personal PII and Non PII |
+| **0x06. Basic authentication**          | Simple API Auth          |
