@@ -69,3 +69,20 @@ class Auth:
                 The user
         """
         return request
+
+    def session_cookie(self, request=None):
+        """
+            Cookie value
+
+            Args:
+                request: Get the cookie session
+
+            Return:
+                Cookie session
+        """
+        if request is None:
+            return None
+
+        cookie_sess = request.cookies.get('_my_session_id', None)
+
+        return cookie_sess
