@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Module of auth
 """
+from os import getenv
 from flask import request
 from typing import List, TypeVar
 
@@ -83,6 +84,7 @@ class Auth:
         if request is None:
             return None
 
-        cookie_sess = request.cookies.get('_my_session_id', None)
+        session_env = getenv('SESSION_NAME', None)
+        cookie_sess = request.cookies.get(session_env, None)
 
         return cookie_sess
