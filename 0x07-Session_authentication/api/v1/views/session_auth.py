@@ -10,13 +10,10 @@ from typing import TypeVar, List
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
-    """ New view session
-
-        Args:
-            request: Look the request
+    """ Auth session Login
 
         Return:
-            User instance based in cooikie
+            Sessioned with credentials
     """
     email = request.form.get('email')
 
@@ -42,3 +39,20 @@ def login():
             return response
 
     return make_response(jsonify({"error": "wrong password"}), 401)
+
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ Logout of the session
+
+        Return:
+            Logout session
+    """
+    from api.v1.app import auth
+    isdestroy = auth.destroy_session(request)
+
+    if not isdestroy:
+        abort(404)
+
+    return jsonify({}), 200

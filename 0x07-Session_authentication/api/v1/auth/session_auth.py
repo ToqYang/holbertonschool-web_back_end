@@ -62,3 +62,24 @@ class SessionAuth(Auth):
         user: TypeVar('User') = User.get(user_id)
 
         return user
+
+    def destroy_session(self, request=None):
+        """ Destroy the auth session if this exist
+
+        Return:
+            Destuction session
+        """
+        if request is None:
+            return False
+
+        session_id: str = self.session_cookie(request)
+
+        if session_id is None:
+            return False
+
+        user_id: str = self.user_id_for_session_id(session_id)
+
+        if user_id is None:
+            return False
+        else:
+            self.user_id_by_session_id.pop(user_id, None)
