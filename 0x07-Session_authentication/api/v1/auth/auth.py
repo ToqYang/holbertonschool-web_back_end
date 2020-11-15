@@ -69,7 +69,7 @@ class Auth:
             Return:
                 The user
         """
-        return request
+        return None
 
     def session_cookie(self, request=None):
         """
