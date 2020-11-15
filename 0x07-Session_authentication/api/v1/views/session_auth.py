@@ -30,22 +30,19 @@ def login():
     exist_user: TypeVar('User')
 
     try:
-        exist_user = User.search({"email": email})[0]
+        exist_user = User.search({"email": email})
     except Exception:
         return jsonify({"error": "no user found for this email"}), 404
 
     if not exist_user:
         return jsonify({"error": "no user found for this email"}), 404
 
-    if not exist_user.is_valid_password(passwd):
-        return make_response(jsonify({"error": "wrong password"}), 401)
-
     from api.v1.app import auth
-    session_id = auth.create_session(exist_user.id)
+    for user in exist_user:
+        if (user.is_valid_password(passwd)):
+            session_id = auth.create_session(user.id)
+            response = make_response(user.to_json())
+            response.set_cookie('SESSION_NAME', session_id)
+            return response
 
-    user = exist_user.to_json()
-
-    response = jsonify(user)
-    response.set_cookie('SESSION_NAME', session_id)
-
-    return response
+    return make_response(jsonify({"error": "wrong password"}), 401)
