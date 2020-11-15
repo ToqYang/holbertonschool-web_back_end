@@ -83,3 +83,5 @@ class SessionAuth(Auth):
             return False
         else:
             self.user_id_by_session_id.pop(user_id, None)
+
+        return True
