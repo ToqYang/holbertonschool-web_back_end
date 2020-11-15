@@ -53,6 +53,6 @@ def logout():
     isdestroy = auth.destroy_session(request)
 
     if isdestroy is False:
-        abort(401)
+        abort(404)
 
     return jsonify({}), 200
