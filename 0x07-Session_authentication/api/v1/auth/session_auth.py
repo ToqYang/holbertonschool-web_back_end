@@ -3,7 +3,7 @@
 """
 from api.v1.auth.auth import Auth
 from models.user import User
-from typing import Dict
+from typing import Dict, TypeVar
 from uuid import uuid4, UUID
 
 
@@ -45,3 +45,20 @@ class SessionAuth(Auth):
         user_id: str = self.user_id_by_session_id.get(session_id)
 
         return user_id
+
+    def current_user(self, request=None):
+        """
+            Take the session cookie and the user id
+            and show the user
+
+            Args:
+                request: Look the request
+
+            Return:
+                User instance based in cooikie
+        """
+        session_id: str = self.session_cookie(request)
+        user_id: str = self.user_id_for_session_id(session_id)
+        user: TypeVar('User') = User.get(user_id)
+
+        return user
