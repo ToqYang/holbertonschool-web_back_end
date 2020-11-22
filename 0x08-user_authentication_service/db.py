@@ -70,7 +70,7 @@ class DB:
 
         return users
 
-    def update_user(self, user_id: int, **kwargs):
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
             Update user in the database
 
@@ -81,6 +81,9 @@ class DB:
             Return:
                 None
         """
+        if not kwargs:
+            return None
+
         user = self.find_user_by(id=user_id)
 
         cols_keys = User.__table__.columns.keys()
