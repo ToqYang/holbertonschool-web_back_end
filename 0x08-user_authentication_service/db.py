@@ -5,7 +5,8 @@ Database nodule
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 
 
@@ -43,3 +44,29 @@ class DB:
         self._session.commit()
 
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+            Search user based in features
+
+            Args:
+                email: Text email
+                hashed_password: Password hashed
+
+            Return:
+                User created
+        """
+        if not kwargs:
+            raise InvalidRequestError
+
+        cols_keys = User.__table__.columns.keys()
+        for key in kwargs.keys():
+            if key not in cols_keys:
+                raise InvalidRequestError
+
+        users = self._session.query(User).filter_by(**kwargs).first()
+
+        if users is None:
+            raise NoResultFound
+
+        return users
