@@ -2,10 +2,11 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 
-@app.route('/', method=['GET'])
+@app.route('/', methods=['GET'])
 def hello_world() -> str:
     """ Greetings """
-    return jsonify({"message": "Bienvenue"})
+    msg = {"message": "Bienvenue"}
+    return jsonify(msg)
 
 
 if __name__ == "__main__":
