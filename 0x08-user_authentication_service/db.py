@@ -47,14 +47,13 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """
-            Search user based in features
+            Find user based in composition of your features
 
             Args:
-                email: Text email
-                hashed_password: Password hashed
+                kwargs: Arbitrary dict with features
 
             Return:
-                User created
+                User found or error name
         """
         if not kwargs:
             raise InvalidRequestError
