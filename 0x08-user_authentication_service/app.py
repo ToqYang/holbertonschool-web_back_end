@@ -1,10 +1,28 @@
 #!/usr/bin/env python3
 """ Flask module """
 from flask import Flask, jsonify, request, abort
+from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
 
 app = Flask(__name__)
 AUTH = Auth()
+
+
+@app.route('/sessions', methods=['POST'])
+def login_user() -> str:
+    """ Sessions Login User """
+    try:
+        email = request.form['email']
+        pwd = request.form['password']
+    except KeyError:
+        abort(401)
+
+    if (AUTH.valid_login(email, pwd)):
+        if (AUTH.create_session(email)) is not None:
+            msg = {"email": email, "message": "logged in"}
+            return jsonify(msg), 200
+
+    abort(401)
 
 
 @app.route('/', methods=['GET'])
