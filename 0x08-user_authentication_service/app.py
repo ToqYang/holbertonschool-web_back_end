@@ -30,7 +30,7 @@ def logout() -> str:
 
     AUTH.destroy_session(user.user_id)
 
-    return redirect(url_for('/'))
+    return redirect(url_for('/'), 302)
 
 
 @app.route('/sessions', methods=['POST'])
