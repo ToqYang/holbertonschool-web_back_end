@@ -177,12 +177,13 @@ class Auth:
 
         try:
             user = self._db.find_user_by(reset_token=reset_token)
-            new_passwd = _hash_password(password)
-
-            self._db.update_user(
-                (user.id), {"hashed_password": new_passwd,
-                            "reset_token": None})
-
-            return None
         except (NoResultFound, InvalidRequestError):
             raise ValueError
+
+        new_passwd = _hash_password(password)
+
+        self._db.update_user(
+            (user.id), {"hashed_password": new_passwd,
+                        "reset_token": None})
+
+        return None
