@@ -9,7 +9,7 @@ AUTH = Auth()
 
 
 @app.route('/sessions', methods=['POST'])
-def login_user() -> str:
+def login() -> str:
     """ Sessions Login User """
     try:
         email = request.form['email']
