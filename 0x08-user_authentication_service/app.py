@@ -8,7 +8,31 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route('/profile', methods=['GET'])
+@app.route('/reset_password', methods=['POST'])
+def reset_password() -> str:
+    """ Get profile with session id
+
+        args:
+            email: Expected
+
+        return
+            200 if it exist otherwise 403
+    """
+    try:
+        email = request.form['email']
+    except KeyError:
+        abort(403)
+
+    token: str = ''
+    try:
+        token = AUTH.get_reset_password_token(email)
+    except ValueError:
+        abort(403)
+
+    return jsonify({"email": email, "reset_token": token}), 200
+
+
+@ app.route('/profile', methods=['GET'])
 def profile() -> str:
     """ Get profile with session id
 
@@ -31,7 +55,7 @@ def profile() -> str:
     return jsonify({"email": user.email}), 200
 
 
-@app.route('/sessions', methods=['DELETE'])
+@ app.route('/sessions', methods=['DELETE'])
 def logout() -> str:
     """ Logout session
 
@@ -56,7 +80,7 @@ def logout() -> str:
     return redirect('/', code=302)
 
 
-@app.route('/sessions', methods=['POST'])
+@ app.route('/sessions', methods=['POST'])
 def login() -> str:
     """ Sessions Login User """
     try:
@@ -75,14 +99,14 @@ def login() -> str:
     abort(401)
 
 
-@app.route('/', methods=['GET'])
+@ app.route('/', methods=['GET'])
 def hello_world() -> str:
     """ Greetings """
     msg = {"message": "Bienvenue"}
     return jsonify(msg)
 
 
-@app.route('/users', methods=['POST'])
+@ app.route('/users', methods=['POST'])
 def register_user() -> str:
     """ Make a new user """
     try:
