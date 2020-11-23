@@ -1,11 +1,34 @@
 #!/usr/bin/env python3
 """ Flask module """
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify, request, abort, redirect, make_response
 from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
 
 app = Flask(__name__)
 AUTH = Auth()
+
+
+@app.route('/profile', methods=['GET'])
+def profile() -> str:
+    """ Get profile with session id
+
+        args:
+            session_id: Session identificator
+
+        return
+            Email 200 otherwise 403 status
+    """
+    session_id = request.cookies.get('session_id', None)
+
+    if session_id is None:
+        abort(403)
+
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user is None:
+        abort(403)
+
+    return jsonify({"email": user.email}), 200
 
 
 @app.route('/sessions', methods=['DELETE'])
