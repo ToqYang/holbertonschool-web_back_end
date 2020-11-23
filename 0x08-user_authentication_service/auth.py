@@ -6,7 +6,7 @@ import bcrypt
 from db import DB
 from user import Base, User
 from sqlalchemy.orm.exc import NoResultFound
-from uuid import UUID
+from uuid import uuid4
 
 
 def _hash_password(password: str = '') -> str:
@@ -83,4 +83,5 @@ class Auth:
             Return:
                 uuid in string
         """
-        return str(UUID())
+        UUID = str(uuid4())
+        return UUID
