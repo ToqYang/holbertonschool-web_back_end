@@ -6,6 +6,7 @@ import bcrypt
 from db import DB
 from user import Base, User
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 from uuid import uuid4
 
 
@@ -103,4 +104,23 @@ class Auth:
 
             return sess_id
         except NoResultFound:
+            return None
+
+    def get_user_from_session_id(self, session_id: str) -> str:
+        """ Find a user based in session id
+
+            Args:
+                session_id: Session identificator
+
+            Return:
+                User otherwise None
+        """
+        if not session_id:
+            return None
+
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+
+            return user
+        except (NoResultFound, InvalidRequestError):
             return None
