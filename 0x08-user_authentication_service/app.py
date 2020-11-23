@@ -1,11 +1,36 @@
 #!/usr/bin/env python3
 """ Flask module """
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect, url_for
 from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
 
 app = Flask(__name__)
 AUTH = Auth()
+
+
+@app.route('/sessions', methods=['DELETE'])
+def logout() -> str:
+    """ Logout session
+
+        args:
+            session_id
+
+        return
+            redirect main or 403 error
+    """
+    session_id = request.cookies.get('session_id', None)
+
+    if session_id is None
+    abort(403)
+
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user is None:
+        abort(403)
+
+    AUTH.destroy_session(user.user_id)
+
+    return redirect(url_for('/'))
 
 
 @app.route('/sessions', methods=['POST'])
