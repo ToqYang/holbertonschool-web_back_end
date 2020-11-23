@@ -18,9 +18,11 @@ def login() -> str:
         abort(401)
 
     if (AUTH.valid_login(email, pwd)):
-        if (AUTH.create_session(email)) is not None:
-            msg = {"email": email, "message": "logged in"}
-            return jsonify(msg), 200
+        session_id = AUTH.create_session(email)
+        if session_id is not None:
+            response = jsonify({"email": email, "message": "logged in"})
+            response.set_cookie("session_id", session_id)
+            return response
 
     abort(401)
 
