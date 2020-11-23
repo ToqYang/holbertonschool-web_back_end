@@ -26,14 +26,14 @@ def _hash_password(password: str = '') -> str:
     return hash_str
 
 
-def _generate_uuid(self) -> str:
+def _generate_uuid() -> str:
     """ Generate uuid
         Return:
             uuid in string
     """
-    UUID = str(uuid4())
+    UUID = uuid4()
 
-    return UUID
+    return str(UUID)
 
 
 class Auth:
