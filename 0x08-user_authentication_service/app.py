@@ -8,6 +8,31 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
+@app.route('/reset_password', methods=['PUT'])
+def update_password() -> str:
+    """ Change the password
+
+        args:
+            email: Expected
+
+        return
+            200 if it exist otherwise 403
+    """
+    try:
+        email = request.form['email']
+        reset_tok = request.form["reset_token"]
+        new_pwd = request.form['new_password']
+    except KeyError:
+        abort(403)
+
+    try:
+        AUTH.update_password(reset_tok, new_pwd)
+    except ValueError:
+        abort(403)
+
+    return jsonify({"email": email, "message": "Password updated"}), 200
+
+
 @app.route('/reset_password', methods=['POST'])
 def reset_password() -> str:
     """ Get profile with session id
