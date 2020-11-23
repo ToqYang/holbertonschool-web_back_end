@@ -161,4 +161,4 @@ class Auth:
 
             return token
         except (NoResultFound, InvalidRequestError):
-            return None
+            raise ValueError
