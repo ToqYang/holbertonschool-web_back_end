@@ -83,4 +83,6 @@ class Auth:
             Return:
                 uuid in string
         """
-        return str(uuid4())
+        id: str = uuid4()
+
+        return str(id)
