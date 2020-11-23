@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Flask module """
-from flask import Flask, jsonify, request, abort, redirect, url_for
+from flask import Flask, jsonify, request, abort, redirect
 from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
 
@@ -30,7 +30,7 @@ def logout() -> str:
 
     AUTH.destroy_session(user.user_id)
 
-    return redirect(url_for('/'), code=302)
+    return redirect('/', code=302)
 
 
 @app.route('/sessions', methods=['POST'])
