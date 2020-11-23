@@ -142,13 +142,13 @@ class Auth:
             return None
 
     def get_reset_password_token(self, email: str) -> str:
-        """ Generate reeset password token
+        """ Generate reset password token
 
             Args:
                 email: To reset the password token
 
             Return:
-                token genereated
+                token generated
         """
         if email is None:
             raise ValueError
@@ -162,3 +162,23 @@ class Auth:
             return token
         except (NoResultFound, InvalidRequestError):
             raise ValueError
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """ Update Password
+
+            Args:
+                email: To reset the password token
+
+            Return:
+                token generat ed
+        """
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            new_passwd = _hash_password(password)
+
+            self._db.update_user(
+                (user.id), {hashed_password: new_passwd, reset_token: None})
+        except (NoResultFound, InvalidRequestError):
+            raise ValueError
+
+        return None
