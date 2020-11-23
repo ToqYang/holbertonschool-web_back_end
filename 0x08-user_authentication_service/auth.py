@@ -53,7 +53,7 @@ class Auth:
 
         return user
 
-    def valid_login(self, email, password):
+    def valid_login(self, email: str, password: str) -> bool:
         """ Verify is there a valid login
 
             Args:
