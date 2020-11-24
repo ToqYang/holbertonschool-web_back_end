@@ -64,9 +64,6 @@ class TestGetJson(unittest.TestCase):
                 url: Web page to look
                 response: result of the consult
         """
-        conf = {'return_value.json.return_value': test_payload}
-        patcher = patch('requests.get', **conf)
-        mock = patcher.start()
-        self.assertEqual(get_json(test_url), test_payload)
-        mock.assert_called_once()
-        patcher.stop()
+        with patch('requests.get') as mock_request:
+            mock_request.return_value.json.return_value = test_payload
+            self.assertEqual(get_json(url=test_url), test_payload)
