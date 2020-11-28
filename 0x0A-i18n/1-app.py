@@ -5,6 +5,7 @@ from flask_babel import Babel
 
 
 class Config(object):
+    """ Configuration Babel """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_TIMEZONE = 'UTC'
     BABEL_DEFAULT_LOCALE = LANGUAGES[0]
@@ -15,14 +16,14 @@ app.config.from_pyfile(Config)
 babel = Babel(app)
 
 
-@app.route('/')
+@app.route('/', strict_slashes=False)
 def hello_world():
     """ Greeting
 
         Return:
             Initial template html
     """
-    return render_template('0-index.html')
+    return render_template('1-index.html')
 
 
 if __name__ == "__main__":
