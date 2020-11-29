@@ -11,7 +11,7 @@ class Config(object):
     BABEL_DEFAULT_LOCALE = 'en'
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.config.from_object(Config)
 babel = Babel(app)
 
@@ -26,7 +26,7 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route('/', method=['GET'], strict_slashes=False)
+@app.route('/', methods=['GET'], strict_slashes=False)
 def hello_world():
     """ Greeting
 
