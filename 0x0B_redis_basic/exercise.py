@@ -7,6 +7,19 @@ from typing import Union, Callable
 import redis
 
 
+def count_calls(method: Callable) -> Callable:
+    """ Decorator count calls """
+    name = method.__qualname__
+
+    @wraps(method)
+    def wrapper(self, *kwargs, **kwargs):
+        """ Wrapper method """
+        self._redis.incr(name)
+        return method(self, *args, **kwargs)
+
+    return wrapper
+
+
 class Cache:
     """ Functionality Redis """
 
@@ -15,6 +28,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
             Store the cache
