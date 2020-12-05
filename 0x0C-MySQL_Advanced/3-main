@@ -1,0 +1,6 @@
+#!/bin/bash
+# Look to the file glam rock
+
+cat metal_bands.sql | mysql -uroot -p holberton
+cat 3-glam_rock.sql | mysql -uroot -p holberton
+
