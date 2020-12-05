@@ -1,0 +1,6 @@
+#!/bin/bash
+# Add bonus
+
+cat 6-init.sql | mysql -uroot -p holberton 
+cat 6-main.sql | mysql -uroot -p holberton
+
