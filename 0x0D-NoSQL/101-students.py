@@ -12,14 +12,14 @@ def top_students(mongo_collection):
         Return:
             List all top students
     """
-    top_students = mongo_collection.aggregate{[
+    top_students = mongo_collection.aggregate([
         {
             "$project": {
                 "name": "$name",
-                "averageScore": {"$avg": "topics.score"}
+                "averageScore": {"$avg": "$topics.score"}
             }
         },
         {"$sort": {"averageScore": -1}}
-    ]}
+    ])
 
     return top_students
