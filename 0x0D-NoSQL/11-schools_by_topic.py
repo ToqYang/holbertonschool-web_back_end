@@ -13,7 +13,7 @@ def schools_by_topic(mongo_collection, topic: str):
         Return:
             List of school
     """
-    query: dict = {"topic": topic}
+    query: dict = {"topics": topic}
     schools: list = []
 
     for school in mongo_collection.find(query):
