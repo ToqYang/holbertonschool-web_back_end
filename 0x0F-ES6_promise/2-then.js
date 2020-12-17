@@ -1,7 +1,4 @@
-/* Resolve Promise
-    This not found a error
-    because independent this pass a promise
-*/
+// Promise
 function handleResponseFromAPI(promise) {
   return promise
     .then(() => ({
