@@ -1,4 +1,3 @@
-// Promise
 function handleResponseFromAPI(promise) {
   return promise
     .then(() => ({
