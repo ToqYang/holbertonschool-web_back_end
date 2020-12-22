@@ -1,5 +1,5 @@
 <p>
-<img width="260" height="170" src="https://www.flaticon.com/svg/static/icons/svg/2772/2772128.svg" align="right" >
+<img width="260" height="170" src="https://www.flaticon.com/svg/static/icons/svg/3077/3077450.svg" align="right" >
 </p>
 
 # :colombia: 0x0D. NoSQL
