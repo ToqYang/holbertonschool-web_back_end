@@ -2,7 +2,7 @@
 
 const getStudentsByLocation = (students, city) => {
   const studentsLocation = students.filter(
-    (student) => student.location === city
+    (student) => student.location === city,
   );
 
   return studentsLocation;
