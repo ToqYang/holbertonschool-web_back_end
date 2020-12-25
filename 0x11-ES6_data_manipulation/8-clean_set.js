@@ -4,11 +4,11 @@ const cleanSet = (set, startString) => {
   const str = [];
 
   if (
-    typeof set !== "object" ||
-    startString instanceof String ||
-    startString.length === 0
+    typeof set !== 'object'
+    || typeof startString !== 'string'
+    || startString.length === 0
   ) {
-    return "";
+    return '';
   }
 
   for (const item of set) {
@@ -17,7 +17,7 @@ const cleanSet = (set, startString) => {
     }
   }
 
-  return str.join("-");
+  return str.join('-');
 };
 
 export default cleanSet;
